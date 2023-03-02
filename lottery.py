@@ -1,5 +1,5 @@
 '''
-Columns of interest in followme export data:
+Columns of interest in followmedata.csv export data:
 
  "Position ID":          unique ID associated with a Job Share position at a company
  "Position Seat Count":  # of seats available for a specific "Position ID"
@@ -8,7 +8,6 @@ Columns of interest in followme export data:
  "Student Name":         for mapping wishlist positions to a student
 '''
 import pandas as pd
-import matplotlib.pyplot as plt
 from utils import printSummaryStats, printAllocationStats, printStudentResults
 from alg1 import compute1
 

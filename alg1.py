@@ -29,18 +29,6 @@ def compute1(positions, students):
                 students[key][3] = posID    # assign 1st choice
                 students[key][4] = 0        # what choice student got (0-2)
                 positions[posID][4] += 1    # increment allocation count for this position
- 
-    # 2nd step in algorithm, if student doesn't have 2nd choice, give them preference for 1st choice
-    #for key, value in students.items():
-    #    if value[1] == None and value[3] == None:  # no second choice and not yet assigned job
-    #        posID = positions[value[0]][0]
-    #        if (positions[posID][4] > positions[posID][2]):
-    #            print("Overallocated position: {0} for student {1} when only choice, skipping".format(
-    #               posID, key))
-    #        else:
-    #            students[key][3] = posID    # assign 1st choice
-    #            students[key][4] = 0        # what choice student got (0-2)
-    #            positions[posID][4] += 1    # increment allocation count for this position 
 
     # 3rd step in algorithm, assign remaining 1st choice spots until positions are full
     for key, value in students.items():
@@ -65,18 +53,6 @@ def compute1(positions, students):
                 students[key][3] = posID    # assign 2nd choice
                 students[key][4] = 1        # what choice student got (0-2)
                 positions[posID][4] += 1    # increment allocation count for this position
-
-    # 2nd step in algorithm, if student doesn't have 3nd choice, give them preference for 2nd choice
-    #for key, value in students.items():
-    #    if value[2] == None and value[3] == None:  # no second choice and not yet assigned job
-    #        posID = positions[value[1]][0]
-    #        if (positions[posID][4] > positions[posID][2]):
-    #            print("Overallocated position: {0} for student {1} when only choice, skipping".format(
-    #                posID, key))
-    #        else:
-    #            students[key][3] = posID    # assign 1st choice
-    #            students[key][4] = 0        # what choice student got (0-2)
-    #            positions[posID][4] += 1    # increment allocation count for this position 
 
     # 3rd step in algorithm, assign remaining 2nd choice spots until positions are full
     for key, value in students.items():
