@@ -6,24 +6,25 @@ Columns of interest in followmedata.csv export data:
  "Wishlist Order":       how student ranked this company,  0 = highest, 2 = lowest
  "Company Name":         for mapping "Position ID" to a company
  "Student Name":         for mapping wishlist positions to a student
+ "Student Email":        to map to corresponding student name in the output
 '''
 import pandas as pd
 from utils import printSummaryStats, printAllocationStats, printStudentResults
 from alg1 import compute1, preFill
-import json, pprint
-import csv
+from constants import *
 
 # Read job share data into Pandas dataframe
 followme = pd.read_csv("./followmedata.csv")
 followme = followme.reset_index()  # make sure indexes pair with number of rows
 
 # iterate over exported data, building data structures for managing lottery algorithm
-PositionDict = {}       # position ID, company name, position slots and position count wishlisted
-StudentDict = {}        # student name, wishlist positions, assigned position and what wishlist rank they got
+PositionDict = {} # position ID, company name, position slots and position count wishlisted
+StudentDict = {}  # student name, wishlist positions, assigned position, what wishlist rank they got and email
 
 # Initialize data structures for tracking job allocations
 for index, row in followme.iterrows():
-    # initialize position table
+
+    # initialize position table  (Key is Position ID)
     PositionDict[row["Position ID"]] = [row["Position ID"], 
                                         row["Company Name"],
                                         row["Position Seat Count"],
@@ -31,27 +32,28 @@ for index, row in followme.iterrows():
                                         0,   # desired 2nd choice count
                                         0,   # desired 3rd choice count
                                         0]   # number allocated
-    # initialize student table
+    
+    # initialize student table (Key is Student Name)
     StudentDict[row["Student Name"]] = [None, None, None, None, None, None]
 
 # 2nd pass for StudentDict to populate wishlist choices
 for index, row in followme.iterrows():
     if row["Wishlist Order"] == 0:
-        StudentDict[row["Student Name"]][0] = row["Position ID"]
+        StudentDict[row["Student Name"]][WISHLIST0] = row["Position ID"]
     if row["Wishlist Order"] == 1:
-        StudentDict[row["Student Name"]][1] = row["Position ID"]
+        StudentDict[row["Student Name"]][WISHLIST1] = row["Position ID"]
     if row["Wishlist Order"] == 2:
-        StudentDict[row["Student Name"]][2] = row["Position ID"]
-    StudentDict[row["Student Name"]][5] = row["Student Email"]
+        StudentDict[row["Student Name"]][WISHLIST2] = row["Position ID"]
+    StudentDict[row["Student Name"]][EMAIL] = row["Student Email"]
 
 # Now calculate desired wishlist 0 position counts and update the Position dict
 for index, row in followme.iterrows():
     if (row["Wishlist Order"] == 0):
-        PositionDict[row["Position ID"]][3] += 1
+        PositionDict[row["Position ID"]][FSTCHOICE] += 1
     elif (row["Wishlist Order"] == 1):
-        PositionDict[row["Position ID"]][4] += 1
+        PositionDict[row["Position ID"]][SNDCHOICE] += 1
     elif (row["Wishlist Order"] == 2):
-        PositionDict[row["Position ID"]][5] += 1
+        PositionDict[row["Position ID"]][THRDCHOICE] += 1
 
 # Print stats about positions and students to cross check with followmejobshadow.com site
 printSummaryStats(PositionDict, StudentDict)
@@ -66,7 +68,7 @@ preferredJobs = { 341: 1.0,     # Flex
                   }      
   
 
-preFill(PositionDict, StudentDict, preferredJobs)
+#preFill(PositionDict, StudentDict, preferredJobs)
 
 # Compute and output results of algorithm 1 selection
 compute1(PositionDict, StudentDict)
