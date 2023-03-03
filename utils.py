@@ -68,4 +68,22 @@ def printStudentResults(positions, students):
         my_writer.writerows(row_list)
         
 
-        
+# one time code to read in a final assignments csv and insert the correct email addresses next to student names
+# Now that happens automatically in the lottery output.
+# XXX Can delete when sure not needed again
+#assignments= pd.read_csv("./final-assignments.csv")
+#assignments = assignments.reset_index()  # make sure indexes pair with number of rows
+
+#row_list = []
+#for index, row in assignments.iterrows():
+#    row_list.append([row["Name"],
+#                     StudentDict[row["Name"]][5],
+#                     row["Company Name"],
+#                     row["Position ID"],
+#                     row["Wishlist Order"]])
+    
+#    header_row = ["Name", "Email Address" "Company Name", "Position ID", "Wishlist Order"]
+#    with open('final.csv', 'w', newline = '') as csvfile:
+#        my_writer = csv.writer(csvfile)
+#        my_writer.writerow(header_row)
+#        my_writer.writerows(row_list)       

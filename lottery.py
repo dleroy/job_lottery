@@ -11,6 +11,7 @@ import pandas as pd
 from utils import printSummaryStats, printAllocationStats, printStudentResults
 from alg1 import compute1, preFill
 import json, pprint
+import csv
 
 # Read job share data into Pandas dataframe
 followme = pd.read_csv("./followmedata.csv")
@@ -31,7 +32,7 @@ for index, row in followme.iterrows():
                                         0,   # desired 3rd choice count
                                         0]   # number allocated
     # initialize student table
-    StudentDict[row["Student Name"]] = [None, None, None, None, None]
+    StudentDict[row["Student Name"]] = [None, None, None, None, None, None]
 
 # 2nd pass for StudentDict to populate wishlist choices
 for index, row in followme.iterrows():
@@ -41,6 +42,7 @@ for index, row in followme.iterrows():
         StudentDict[row["Student Name"]][1] = row["Position ID"]
     if row["Wishlist Order"] == 2:
         StudentDict[row["Student Name"]][2] = row["Position ID"]
+    StudentDict[row["Student Name"]][5] = row["Student Email"]
 
 # Now calculate desired wishlist 0 position counts and update the Position dict
 for index, row in followme.iterrows():
@@ -73,8 +75,4 @@ compute1(PositionDict, StudentDict)
 printAllocationStats(PositionDict, StudentDict)
 
 # Print 
-printStudentResults(PositionDict, StudentDict)
-
-#print(json.dumps(PositionDict, indent=4))
-
-
+printStudentResults(PositionDict, StudentDict) 
