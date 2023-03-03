@@ -60,10 +60,9 @@ def printStudentResults(positions, students):
     for key, value in students.items():
         if value[ASSIGNED] != None:
         # XXX Add not assigned as well?
-        # XXX Add email to output
-            row_list.append([key, positions[value[ASSIGNED]][COMPANY], value[ASSIGNED], value[RANKRCVD]])
+            row_list.append([key, value[EMAIL], positions[value[ASSIGNED]][COMPANY], value[ASSIGNED], value[RANKRCVD]])
     
-    header_row = ["Student Name", "Company Name", "Position ID", "Wishlist Order"]
+    header_row = ["Student Name", "Student Email", "Company Name", "Position ID", "Wishlist Order"]
     with open('JobShare.csv', 'w', newline = '') as csvfile:
         my_writer = csv.writer(csvfile)
         my_writer.writerow(header_row)
