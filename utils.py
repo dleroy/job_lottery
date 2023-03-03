@@ -35,7 +35,7 @@ def printAllocationStats(positions, students):
             thirdChoice += 1
 
     print("Student Choice Summary:")
-    print("First Choice: {0}\nSecond Choice: {1}\nThrid Choice: {2}\nNot allocated: {3}".format(
+    print("First Choice: {0}\nSecond Choice: {1}\nThird Choice: {2}\nNot allocated: {3}".format(
         firstChoice, secondChoice, thirdChoice, noChoice))
     
     print("Students with no choice allocated:")

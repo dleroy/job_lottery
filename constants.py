@@ -1,3 +1,5 @@
+MAXCHOICES = 3      # max wishlist choices
+
 # Constants for Student columns
 WISHLIST0 = 0
 WISHLIST1 = 1

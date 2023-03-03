@@ -10,63 +10,20 @@ from constants import *
 
 def compute1(positions, students):
 
-    # 1st step in algorithm, allocate jobs to students whose 1st choice isn't overallocated
-    for key, value in students.items():
-        if value[ASSIGNED] == None:      # if not already assigned a job
-            posID = positions[value[WISHLIST0]][POSID]      # students 1st choice, assumes not None
-            if positions[posID][ALLOCCOUNT] < positions[posID][SLOTSAVAIL]:  # not overallocated
-                students[key][ASSIGNED] = posID    # assign 1st choice
-                students[key][RANKRCVD] = 0        # what choice student got (0-2)
-                positions[posID][ALLOCCOUNT] += 1    # increment allocation count for this position
-
-    # 3rd step in algorithm, assign remaining 1st choice spots until positions are full
-    for key, value in students.items():
-        if value[ASSIGNED] == None:      # if not already assigned a job
-            posID = positions[value[WISHLIST0]][POSID]
-            if (positions[posID][ASSIGNED] >= positions[posID][SLOTSAVAIL]):
-                #print("Overallocated position: {0} for student {1}, skipping".format(
-                #posID, key))
-                pass
-            else:
-                students[key][ASSIGNED] = posID    # assign 1st choice
-                students[key][RANKRCVD] = 0        # what choice student got (0-2)
-                positions[posID][ALLOCCOUNT] += 1    # increment allocation count for this position
-
-    # repeat same for 2nd choices for any student not yet allocated
-
-    # 1st step in algorithm, allocate jobs to students whose 2nd choice isn't overallocated
-    for key, value in students.items():
-        if value[WISHLIST1] != None and value[ASSIGNED] == None:
-            posID = positions[value[WISHLIST1]][POSID]      # students 2nd choice, assumes not None
-            if positions[posID][ASSIGNED] < positions[posID][SLOTSAVAIL]:  # not overallocated
-                students[key][ASSIGNED] = posID    # assign 2nd choice
-                students[key][RANKRCVD] = 1        # what choice student got (0-2)
-                positions[posID][ALLOCCOUNT] += 1    # increment allocation count for this position
-
-    # 3rd step in algorithm, assign remaining 2nd choice spots until positions are full
-    for key, value in students.items():
-        if value[WISHLIST1] != None and value[ASSIGNED] == None:   # not yet assigned job
-            posID = positions[value[WISHLIST1]][POSID]
-            if (positions[posID][ASSIGNED] >= positions[posID][SLOTSAVAIL]):
-                pass
-            else:
-                students[key][ASSIGNED] = posID    # assign 1st choice
-                students[key][RANKRCVD] = 1        # what choice student got (0-2)
-                positions[posID][ALLOCCOUNT] += 1    # increment allocation count for this position
-
-    # finally, allocate 3rd chioce to any remaining students, warn if they don't have a spot available
-    for key, value in students.items():
-        if value[WISHLIST2] != None and value[ASSIGNED] == None:   # not yet assigned job
-            posID = positions[value[WISHLIST2]][POSID]
-            if (positions[posID][ASSIGNED] >= positions[posID][SLOTSAVAIL]):
-                print("Overallocated position: {0} for student {1} and 3rd choice skipping".format(
-                posID, key))
-            else:
-                students[key][ASSIGNED] = posID    # assign 1st choice
-                students[key][RANKRCVD] = 2        # what choice student got (0-2)
-                positions[posID][ALLOCCOUNT] += 1    # increment allocation count for this position
-
-
+    # Iterate over all wishlist choices, starting with first
+    for choice in range (0, MAXCHOICES):
+        # Allocate choices to students until the positions fill
+        for key, value in students.items():
+            if (value[ASSIGNED] == None and value[choice] != None):  # Not yet assigned and has a wishlist choice
+                posID = positions[value[choice]][POSID]      
+                if positions[posID][ALLOCCOUNT] < positions[posID][SLOTSAVAIL]:  # not overallocated
+                    students[key][ASSIGNED] = posID     # assign choice
+                    students[key][RANKRCVD] = choice     # what choice student received
+                    positions[posID][ALLOCCOUNT] += 1   # increment allocation count for this position
+                else:
+                    #print("{0} not allocated choice #{1} because position {2} is full".format(
+                    #    key, choice, posID))
+                    pass
 
 def preFill(positions, students, preferredJobs):
     ''' Can be used as a first step before normal algorithm runs
@@ -83,7 +40,7 @@ def preFill(positions, students, preferredJobs):
         print("Filling position {0} to  {1} out of {2} total seats".format(
             job, desiredCount, positions[job][2]))
         for key, value in students.items():
-            for i in range (0,3):      # loop through all 3 choices
+            for i in range (0,MAXCHOICES):      # loop through all 3 choices
                 if value[i] != None:
                     posID = positions[value[i]][POSID]      # students 1st choice, assumes not None
                     if posID != None and posID ==job:
