@@ -52,13 +52,13 @@ def printAllocationStats(positions, students):
         print("{0}\t{1}\t{2}".format(
             value[1], value[2], value[4]))
         
-def printStudentResults(students,positions):
+def printStudentResults(positions, students):
     ''' Output Student name, position allocated and what choice they got '''
    
     row_list = []
     for key, value in students.items():
         if value[3] != None:
-            print("{0}\t{1}\t{2}".format(key, value[3], value[4]))
+            #print("{0}\t{1}\t{2}".format(key, value[3], value[4]))
             row_list.append([key, positions[value[3]][1], value[3], value[4]])
     
     header_row = ["Student Name", "Company Name", "Position ID", "Wishlist Order"]

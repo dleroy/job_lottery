@@ -9,7 +9,7 @@ Columns of interest in followmedata.csv export data:
 '''
 import pandas as pd
 from utils import printSummaryStats, printAllocationStats, printStudentResults
-from alg1 import compute1
+from alg1 import compute1, preFill
 
 # Read job share data into Pandas dataframe
 followme = pd.read_csv("./followmedata.csv")
@@ -47,10 +47,21 @@ for index, row in followme.iterrows():
 # Print stats about positions and students to cross check with followmejobshadow.com site
 printSummaryStats(PositionDict, StudentDict)
 
+# If you want to pre-fill specific Job IDs, put the list here and uncomment this line
+preferredJobs = { 341: .90,     # Flex
+                  332: .90,     # Lockheed
+                  331: .90,     # Intuitive Surgical
+                  301: .90,     # HPE
+                  340: .90,     # Amazon Devices
+                  }      
+#preFill(PositionDict, StudentDict, preferredJobs)
+
 # Compute and output results of algorithm 1 selection
 compute1(PositionDict, StudentDict)
 
+# print 1st, 2nd, 3rd choide stats
 printAllocationStats(PositionDict, StudentDict)
 
-printStudentResults(StudentDict, PositionDict)
+# Print 
+printStudentResults(PositionDict, StudentDict)
 
