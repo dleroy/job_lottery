@@ -66,8 +66,8 @@ preferredJobs = { 341: 1.0,     # Flex
                   340: 1.0,     # Amazon Devices
                   261: 1.0,     # Christie's Real Estate
                   }      
-  
 
+# Uncomment this line if you want to prefill specific positions, defined by preferredJobs above
 #preFill(PositionDict, StudentDict, preferredJobs)
 
 # Compute and output results of algorithm 1 selection
@@ -76,5 +76,5 @@ compute1(PositionDict, StudentDict)
 # print 1st, 2nd, 3rd choide stats
 printAllocationStats(PositionDict, StudentDict)
 
-# Print 
+# Print Student results to a CSV file JobShare.csv
 printStudentResults(PositionDict, StudentDict) 
