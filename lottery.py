@@ -9,7 +9,7 @@ Columns of interest in followmedata.csv export data:
  "Student Email":        to map to corresponding student name in the output
 '''
 import pandas as pd
-from utils import printSummaryStats, printAllocationStats, printStudentResults
+from utils import printSummaryStats, printAllocationStats, printStudentResults, printAllocationStats2
 from alg1 import compute1, preFill
 from constants import *
 
@@ -78,3 +78,6 @@ printAllocationStats(PositionDict, StudentDict)
 
 # Print Student results to a CSV file JobShare.csv
 printStudentResults(PositionDict, StudentDict) 
+
+# Shows who got what choice based on how many slots were available
+printAllocationStats2(PositionDict,StudentDict)

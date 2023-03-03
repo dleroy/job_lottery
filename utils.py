@@ -69,6 +69,66 @@ def printStudentResults(positions, students):
         my_writer.writerows(row_list)
         
 
+def printAllocationStats2(positions, students):
+    ''' Look at correlation between number of slots available in choices made vs. what spot they received
+        Output:
+            1st choice:  num, min, mean, max slots available
+            2nd choice: ...
+            3rd choice: ...
+            not allocated: ...
+    '''
+    results = {
+        0: [0,1000,0,0],
+        1: [0,1000,0,0],
+        2: [0,1000,0,0],
+        3: [0,1000,0,0]
+    }
+    firstChoice = 0
+    secondChoice = 0
+    thirdChoice = 0
+    noChoice = 0
+    for key, value in students.items():
+        slots =  positions[value[WISHLIST0]][SLOTSAVAIL] if (value[WISHLIST0] != None) else 0
+        slots += positions[value[WISHLIST1]][SLOTSAVAIL] if (value[WISHLIST1] != None) else 0
+        slots += positions[value[WISHLIST2]][SLOTSAVAIL] if (value[WISHLIST2] != None) else 0
+        print(slots)
+        if value[RANKRCVD] == None:
+            noChoice += 1
+            results[3][0] += 1
+            results[3][2] += slots;
+            if results[3][1] > slots:
+                results[3][1] = slots;
+            if results[3][3] < slots:
+                results[3][3] = slots;
+        elif value[RANKRCVD] == 0:
+            firstChoice += 1
+            results[0][0] += 1
+            results[0][2] += slots;
+            if results[0][1] > slots:
+                results[0][1] = slots;
+            if results[0][3] < slots:
+                results[0][3] = slots;
+        elif value[RANKRCVD] == 1:
+            secondChoice += 1
+            results[1][0] += 1
+            results[1][2] += slots;
+            if results[1][1] > slots:
+                results[1][1] = slots;
+            if results[1][3] < slots:
+                results[1][3] = slots;
+        else:
+            thirdChoice += 1
+            results[2][0] += 1
+            results[2][2] += slots;
+            if results[2][1] > slots:
+                results[2][1] = slots;
+            if results[2][3] < slots:
+                results[2][3] = slots;
+
+    for i in range(0, 4):
+        results[i][2] = results[i][2]/results[i][0]
+    print(results);
+
 # one time code to read in a final assignments csv and insert the correct email addresses next to student names
 # Now that happens automatically in the lottery output.
 # XXX Can delete when sure not needed again
