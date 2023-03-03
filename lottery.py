@@ -10,6 +10,7 @@ Columns of interest in followmedata.csv export data:
 import pandas as pd
 from utils import printSummaryStats, printAllocationStats, printStudentResults
 from alg1 import compute1, preFill
+import json, pprint
 
 # Read job share data into Pandas dataframe
 followme = pd.read_csv("./followmedata.csv")
@@ -26,6 +27,8 @@ for index, row in followme.iterrows():
                                         row["Company Name"],
                                         row["Position Seat Count"],
                                         0,   # desired 1st choice count
+                                        0,   # desired 2nd choice count
+                                        0,   # desired 3rd choice count
                                         0]   # number allocated
     # initialize student table
     StudentDict[row["Student Name"]] = [None, None, None, None, None]
@@ -43,18 +46,25 @@ for index, row in followme.iterrows():
 for index, row in followme.iterrows():
     if (row["Wishlist Order"] == 0):
         PositionDict[row["Position ID"]][3] += 1
+    elif (row["Wishlist Order"] == 1):
+        PositionDict[row["Position ID"]][4] += 1
+    elif (row["Wishlist Order"] == 2):
+        PositionDict[row["Position ID"]][5] += 1
 
 # Print stats about positions and students to cross check with followmejobshadow.com site
 printSummaryStats(PositionDict, StudentDict)
 
 # If you want to pre-fill specific Job IDs, put the list here and uncomment this line
-preferredJobs = { 341: .90,     # Flex
-                  332: .90,     # Lockheed
-                  331: .90,     # Intuitive Surgical
-                  301: .90,     # HPE
-                  340: .90,     # Amazon Devices
+preferredJobs = { 341: 1.0,     # Flex
+                  332: 1.0,     # Lockheed
+                  331: 1.0,     # Intuitive Surgical
+                  301: 1.0,     # HPE
+                  340: 1.0,     # Amazon Devices
+                  261: 1.0,     # Christie's Real Estate
                   }      
-#preFill(PositionDict, StudentDict, preferredJobs)
+  
+
+preFill(PositionDict, StudentDict, preferredJobs)
 
 # Compute and output results of algorithm 1 selection
 compute1(PositionDict, StudentDict)
@@ -64,4 +74,7 @@ printAllocationStats(PositionDict, StudentDict)
 
 # Print 
 printStudentResults(PositionDict, StudentDict)
+
+#print(json.dumps(PositionDict, indent=4))
+
 

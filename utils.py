@@ -50,7 +50,7 @@ def printAllocationStats(positions, students):
     print("Company\tseats\tallocated")
     for key, value in positions.items():
         print("{0}\t{1}\t{2}".format(
-            value[1], value[2], value[4]))
+            value[1], value[2], value[6]))
         
 def printStudentResults(positions, students):
     ''' Output Student name, position allocated and what choice they got '''
