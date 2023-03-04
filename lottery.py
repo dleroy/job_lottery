@@ -60,9 +60,9 @@ for index, row in followme.iterrows():
     elif (row["Wishlist Order"] == 2):
         PositionDict[row["Position ID"]][THRDCHOICE] += 1
 
-# Define grades you want to consider in lottery
+# Define grades you want to consider in lottery. Order matters. 1st element will get allocations 1st
 #grades = ["Freshman", "Sophomore", "Junior", "Senior"]
-grades = ["Freshman", "Senior"]
+grades = ["Senior", "Freshman"]       # Seniors allocated, then freshman
 
 # If you want to pre-fill specific Job IDs, put the list here (posID: %tofill 0.0-1.0 )
 #preferredJobs = { 341: 1.0,     # Flex

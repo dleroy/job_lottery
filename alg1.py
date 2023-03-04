@@ -12,23 +12,25 @@ def compute1(positions, students, grades):
         return
 
     random.seed(4)    # seed random number generator for reproducible results
-    # Iterate over all wishlist choices, starting with first
-    for choice in range (0, MAXCHOICES):
+    for grade in grades:       # allocate in grade priority order
+        print("Processing {0}".format(grade))
+        # Iterate over all wishlist choices, starting with first
+        for choice in range (0, MAXCHOICES):
         # Allocate choices to students until the positions fill
-        items = list(students.items())
-        random.shuffle(items)
-        for key, value in items:
-            if (value[GRADE] in grades):     # only run for the grades passed in
-                if (value[ASSIGNED] == None and value[choice] != None):  # Not yet assigned and has a wishlist choice
-                    posID = positions[value[choice]][POSID]      
-                    if positions[posID][ALLOCCOUNT] < positions[posID][SLOTSREMAIN]:  # not overallocated
-                        students[key][ASSIGNED] = posID     # assign choice
-                        students[key][RANKRCVD] = choice     # what choice student received
-                        positions[posID][ALLOCCOUNT] += 1   # increment allocation count for this position
-                    else:
-                        #print("{0} not allocated choice #{1} because position {2} is full".format(
-                        #    key, choice, posID))
-                        pass
+            items = list(students.items())
+            random.shuffle(items)
+            for key, value in items:
+                if value[GRADE] == grade:     # only run for the current grade
+                    if (value[ASSIGNED] == None and value[choice] != None):  # Not yet assigned and has a wishlist choice
+                        posID = positions[value[choice]][POSID]      
+                        if positions[posID][ALLOCCOUNT] < positions[posID][SLOTSREMAIN]:  # not overallocated
+                            students[key][ASSIGNED] = posID     # assign choice
+                            students[key][RANKRCVD] = choice     # what choice student received
+                            positions[posID][ALLOCCOUNT] += 1   # increment allocation count for this position
+                        else:
+                            #print("{0} not allocated choice #{1} because position {2} is full".format(
+                            #    key, choice, posID))
+                            pass
 
 def preFill(positions, students, preferredJobs, grades):
     ''' Can be used as a first step before normal algorithm runs
