@@ -65,12 +65,13 @@ def writeStudentResults(positions, students, grades):
     for key, value in students.items():
         if (value[GRADE] in grades):
                 row_list.append([key, 
-                            value[EMAIL], 
+                            value[EMAIL],
+                            value[GRADE],
                             positions[value[ASSIGNED]][COMPANY] if (value[ASSIGNED] != None) else None,
                             value[ASSIGNED], 
                             value[RANKRCVD]])
     
-    header_row = ["Student Name", "Student Email", "Company Name", "Position ID", "Wishlist Order"]
+    header_row = ["Student Name", "Student Email", "Student Grade", "Company Name", "Position ID", "Wishlist Order"]
     with open('JobShare.csv', 'w', newline = '') as csvfile:
         my_writer = csv.writer(csvfile)
         my_writer.writerow(header_row)
