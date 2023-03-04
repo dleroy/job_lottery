@@ -80,4 +80,4 @@ printAllocationStats(PositionDict, StudentDict)
 printStudentResults(PositionDict, StudentDict) 
 
 # Shows who got what choice based on how many slots were available
-printAllocationStats2(PositionDict,StudentDict)
+#printAllocationStats2(PositionDict,StudentDict)

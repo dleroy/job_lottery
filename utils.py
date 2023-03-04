@@ -91,7 +91,6 @@ def printAllocationStats2(positions, students):
         slots =  positions[value[WISHLIST0]][SLOTSAVAIL] if (value[WISHLIST0] != None) else 0
         slots += positions[value[WISHLIST1]][SLOTSAVAIL] if (value[WISHLIST1] != None) else 0
         slots += positions[value[WISHLIST2]][SLOTSAVAIL] if (value[WISHLIST2] != None) else 0
-        print(slots)
         if value[RANKRCVD] == None:
             noChoice += 1
             results[3][0] += 1
