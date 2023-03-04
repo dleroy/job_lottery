@@ -6,14 +6,19 @@
         make 1 more pass, assign 1st choice for all unless position is full
     Repeat same process for 2nd and 3rd choices
 '''
+import random
 from constants import *
 
 def compute1(positions, students):
 
+    random.seed(4)
     # Iterate over all wishlist choices, starting with first
     for choice in range (0, MAXCHOICES):
         # Allocate choices to students until the positions fill
-        for key, value in students.items():
+        items = list(students.items())
+        random.shuffle(items)
+        for key, value in items:
+            print(key)
             if (value[ASSIGNED] == None and value[choice] != None):  # Not yet assigned and has a wishlist choice
                 posID = positions[value[choice]][POSID]      
                 if positions[posID][ALLOCCOUNT] < positions[posID][SLOTSAVAIL]:  # not overallocated
