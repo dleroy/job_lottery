@@ -15,7 +15,7 @@ def printSummaryStats(positions, students):
     print("Total Students: {0}\n".format(
           len(students)))
     
-def printAllocationStats(positions, students):
+def printAllocationStats(positions, students, grades):
     '''
         Students: how many got 1st, 2nd and 3rd choices, how many Not allocated
         Positions:  Company Name, seat count and allocated count
@@ -25,19 +25,24 @@ def printAllocationStats(positions, students):
     thirdChoice = 0
     noChoice = 0
     for key, value in students.items():
-        if value[RANKRCVD] == None:
-            noChoice += 1
-        elif value[RANKRCVD] == 0:
-            firstChoice += 1
-        elif value[RANKRCVD] == 1:
-            secondChoice += 1
-        else:
-            thirdChoice += 1
+        if (value[GRADE] in grades):
+            if value[RANKRCVD] == None:
+                noChoice += 1
+            elif value[RANKRCVD] == 0:
+                firstChoice += 1
+            elif value[RANKRCVD] == 1:
+                secondChoice += 1
+            else:
+                thirdChoice += 1
 
     print("Student Choice Summary:")
-    print("First Choice: {0}\nSecond Choice: {1}\nThird Choice: {2}\nNot allocated: {3}".format(
+    print("\nGrades Considered in Lottery:")
+    [print(i) for i in grades]
+    print("\nFirst Choice: {0}\nSecond Choice: {1}\nThird Choice: {2}\nNot allocated: {3}".format(
         firstChoice, secondChoice, thirdChoice, noChoice))
     
+    return
+
     print("Students with no choice allocated:")
     for key, value in students.items():
         if value[RANKRCVD] == None:
@@ -53,14 +58,17 @@ def printAllocationStats(positions, students):
         print("{0}\t{1}\t{2}".format(
             value[COMPANY], value[SLOTSAVAIL], value[ALLOCCOUNT]))
         
-def printStudentResults(positions, students):
+def writeStudentResults(positions, students, grades):
     ''' Output Student name, position allocated and what choice they got '''
    
     row_list = []
     for key, value in students.items():
-        if value[ASSIGNED] != None:
-        # XXX Add not assigned as well?
-            row_list.append([key, value[EMAIL], positions[value[ASSIGNED]][COMPANY], value[ASSIGNED], value[RANKRCVD]])
+        if (value[GRADE] in grades):
+                row_list.append([key, 
+                            value[EMAIL], 
+                            positions[value[ASSIGNED]][COMPANY] if (value[ASSIGNED] != None) else None,
+                            value[ASSIGNED], 
+                            value[RANKRCVD]])
     
     header_row = ["Student Name", "Student Email", "Company Name", "Position ID", "Wishlist Order"]
     with open('JobShare.csv', 'w', newline = '') as csvfile:
