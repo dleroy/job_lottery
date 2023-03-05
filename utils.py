@@ -64,10 +64,14 @@ def writeStudentResults(positions, students, grades):
     row_list = []
     for key, value in students.items():
         if (value[GRADE] in grades):
+                # Build candidates company choices and print only if they didn't get a company assigned
+                companyChoices =  positions[value[WISHLIST0]][COMPANY] if (value[WISHLIST0] != None) else ""
+                companyChoices += "," + str(positions[value[WISHLIST1]][COMPANY]) if (value[WISHLIST1] != None) else ""
+                companyChoices += "," + str(positions[value[WISHLIST2]][COMPANY] )if (value[WISHLIST2] != None) else ""
                 row_list.append([key, 
                             value[EMAIL],
                             value[GRADE],
-                            positions[value[ASSIGNED]][COMPANY] if (value[ASSIGNED] != None) else None,
+                            positions[value[ASSIGNED]][COMPANY] if (value[ASSIGNED] != None) else companyChoices,
                             value[ASSIGNED], 
                             value[RANKRCVD]])
     
