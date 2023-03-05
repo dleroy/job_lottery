@@ -13,7 +13,6 @@ def compute1(positions, students, grades):
 
     random.seed(4)    # seed random number generator for reproducible results
     for grade in grades:       # allocate in grade priority order
-        print("Processing {0}".format(grade))
         # Iterate over all wishlist choices, starting with first
         for choice in range (0, MAXCHOICES):
         # Allocate choices to students until the positions fill
