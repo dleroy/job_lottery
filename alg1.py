@@ -24,7 +24,7 @@ def compute1(positions, students, grades):
             for key, value in items:
                 if value[GRADE] == grade:     # only run for the current grade
                     # Not yet assigned and has a wishlist choice
-                    if (value[ASSIGNED] is None and value[choice] is not None):
+                    if value[ASSIGNED] is None and value[choice] is not None:
                         pos_id = positions[value[choice]][POSID]
                         # not overallocated
                         if positions[pos_id][ALLOCCOUNT] < positions[pos_id][SLOTSAVAIL]:
