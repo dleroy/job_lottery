@@ -1,7 +1,8 @@
 '''
  1st algorithm for lottery:
      Very basic, assign 1st choices until positions fill, then move to 2nd choices and then 3rd
-     There can/will be students who don't get a spot depending on slots available for their job choices.
+     There can/will be students who don't get a spot depending on slots available for their 
+     job choices.
 '''
 import random
 from constants import *
@@ -20,15 +21,16 @@ def compute1(positions, students, grades):
             random.shuffle(items)
             for key, value in items:
                 if value[GRADE] == grade:     # only run for the current grade
-                    if (value[ASSIGNED] == None and value[choice] != None):  # Not yet assigned and has a wishlist choice
+                    # Not yet assigned and has a wishlist choice
+                    if (value[ASSIGNED] == None and value[choice] != None):  
                         posID = positions[value[choice]][POSID]      
-                        if positions[posID][ALLOCCOUNT] < positions[posID][SLOTSREMAIN]:  # not overallocated
+                        # not overallocated
+                        if positions[posID][ALLOCCOUNT] < positions[posID][SLOTSAVAIL]:  
                             students[key][ASSIGNED] = posID     # assign choice
                             students[key][RANKRCVD] = choice     # what choice student received
-                            positions[posID][ALLOCCOUNT] += 1   # increment allocation count for this position
+                            # increment allocation count for this position
+                            positions[posID][ALLOCCOUNT] += 1   
                         else:
-                            #print("{0} not allocated choice #{1} because position {2} is full".format(
-                            #    key, choice, posID))
                             pass
 
 def preFill(positions, students, preferredJobs, grades):
