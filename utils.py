@@ -1,6 +1,8 @@
 ''' Utility functions for the Job Share Lottery '''
 import csv
-from constants import COMPANY, SLOTSAVAIL, RANKRCVD, WISHLIST0, WISHLIST1, WISHLIST2, EMAIL, GRADE, ASSIGNED
+from constants import (
+                        COMPANY, SLOTSAVAIL, RANKRCVD, WISHLIST0, 
+                        WISHLIST1, WISHLIST2, EMAIL, GRADE, ASSIGNED)
 
 
 def print_summary_stats(positions, students):
@@ -9,7 +11,7 @@ def print_summary_stats(positions, students):
       Students: Student total
     '''
     total_jobs = 0
-    for key, value in positions.items():
+    for value in positions.values():
         total_jobs += value[SLOTSAVAIL]
 
     print(
@@ -28,7 +30,7 @@ def print_allocation_stats(positions, students, grades):
     no_choice = 0
     student_grade = {"Freshman": 0, "Sophmore": 0, "Junior": 0, "Senior": 0}
     for key, value in students.items():
-        if (value[GRADE] in grades):
+        if value[GRADE] in grades:
             student_grade[value[GRADE]] += 1
             if value[RANKRCVD] is None:
                 no_choice += 1

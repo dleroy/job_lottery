@@ -1,3 +1,4 @@
+''' Constants for the lottery program. '''
 MAXCHOICES = 3      # max wishlist choices
 
 # Constants for Student columns
@@ -18,4 +19,3 @@ ALLOCCOUNT = 4
 FSTCHOICE = 5
 SNDCHOICE = 6
 THRDCHOICE = 7
-

@@ -13,7 +13,8 @@ Columns of interest in followmedata.csv export data:
 import pandas as pd
 from utils import print_summary_stats, print_allocation_stats, write_student_results
 from alg1 import compute1, pre_fill
-from constants import WISHLIST0, WISHLIST1, WISHLIST2, EMAIL, GRADE, FSTCHOICE, SNDCHOICE, THRDCHOICE
+from constants import (WISHLIST0, WISHLIST1, WISHLIST2,
+                       EMAIL, GRADE, FSTCHOICE, SNDCHOICE, THRDCHOICE)
 
 # Read job share data into Pandas dataframe
 followme = pd.read_csv("./followmedata.csv")

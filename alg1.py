@@ -25,14 +25,15 @@ def compute1(positions, students, grades):
                 if value[GRADE] == grade:     # only run for the current grade
                     # Not yet assigned and has a wishlist choice
                     if (value[ASSIGNED] is None and value[choice] is not None):
-                        posID = positions[value[choice]][POSID]
+                        pos_id = positions[value[choice]][POSID]
                         # not overallocated
-                        if positions[posID][ALLOCCOUNT] < positions[posID][SLOTSAVAIL]:
-                            students[key][ASSIGNED] = posID     # assign choice
+                        if positions[pos_id][ALLOCCOUNT] < positions[pos_id][SLOTSAVAIL]:
+                            # assign choice
+                            students[key][ASSIGNED] = pos_id
                             # what choice student received
                             students[key][RANKRCVD] = choice
                             # increment allocation count for this position
-                            positions[posID][ALLOCCOUNT] += 1
+                            positions[pos_id][ALLOCCOUNT] += 1
                         else:
                             pass
 
@@ -52,9 +53,10 @@ def pre_fill(positions, students, preferred_jobs, grades):
 
     for job, percent in preferred_jobs.items():
         desired_count = int(positions[job][2] * percent)
-        print(f'Filling position {job} to {desired_count} out of {positions[job][2]} total seats')
+        print(
+            f'Filling position {job} to {desired_count} out of {positions[job][2]} total seats')
         for key, value in students.items():
-            if (value[GRADE] in grades):
+            if value[GRADE] in grades:
                 for i in range(0, MAXCHOICES):      # loop through all 3 choices
                     if value[i] is not None:
                         # students 1st choice, assumes not None
