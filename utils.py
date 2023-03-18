@@ -24,8 +24,10 @@ def printAllocationStats(positions, students, grades):
     secondChoice = 0
     thirdChoice = 0
     noChoice = 0
+    studentGrade = { "Freshman": 0, "Sophmore" : 0, "Junior": 0, "Senior": 0}
     for key, value in students.items():
         if (value[GRADE] in grades):
+            studentGrade[value[GRADE]] += 1
             if value[RANKRCVD] == None:
                 noChoice += 1
             elif value[RANKRCVD] == 0:
@@ -34,9 +36,13 @@ def printAllocationStats(positions, students, grades):
                 secondChoice += 1
             else:
                 thirdChoice += 1
+        else:
+            print("No valid choice: {0}".format(key))
 
     print("Student Choice Summary:")
+    
     print("\nGrades Considered in Lottery:")
+    print(studentGrade)
     [print(i) for i in grades]
     print("\nFirst Choice: {0}\nSecond Choice: {1}\nThird Choice: {2}\nNot allocated: {3}".format(
         firstChoice, secondChoice, thirdChoice, noChoice))
