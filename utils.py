@@ -1,7 +1,7 @@
 ''' Utility functions for the Job Share Lottery '''
 import csv
 from constants import (
-                        COMPANY, SLOTSAVAIL, RANKRCVD, WISHLIST0, 
+                        COMPANY, SLOTSAVAIL, RANKRCVD, WISHLIST0,
                         WISHLIST1, WISHLIST2, EMAIL, GRADE, ASSIGNED)
 
 
@@ -48,9 +48,8 @@ def print_allocation_stats(positions, students, grades):
     print("\nGrades Considered in Lottery:")
     print(student_grade)
     [print(i) for i in grades]
-    print(
-        f'First Choice: {first_choice}\nSecond Choice: {second_choice}\nThird Choice: {third_choice}\nNot allocated: {no_choice}')
-
+    print(f'First Choice: {first_choice}\nSecond Choice: {second_choice}\nThird Choice: \
+                {third_choice}\nNot allocated: {no_choice}')
     return
 
     # print("Students with no choice allocated:")
@@ -63,7 +62,6 @@ def print_allocation_stats(positions, students, grades):
     #            positions[value[WISHLIST1]][COMPANY] if (
     #                value[WISHLIST1] != None) else "",
     #            positions[value[WISHLIST2]][COMPANY] if (value[WISHLIST2] != None) else ""))
-
     # print("\nCompany Stats:")
     # print("Company\tseats\tallocated")
     # for key, value in positions.items():
@@ -76,7 +74,7 @@ def write_student_results(positions, students, grades):
 
     row_list = []
     for key, value in students.items():
-        if (value[GRADE] in grades):
+        if value[GRADE] in grades:
             # Build candidates company choices and print only if they didn't get a company assigned
             company_choices = positions[value[WISHLIST0]][COMPANY] if (
                 value[WISHLIST0] is not None) else ""
@@ -103,7 +101,8 @@ def write_student_results(positions, students, grades):
 
 
 def print_allocation_stats2(positions, students):
-    ''' Look at correlation between number of slots available in choices made vs. what spot they received
+    ''' Look at correlation between number of slots available in choices 
+        made vs. what spot they received
         Output:
             1st choice:  num, min, mean, max slots available
             2nd choice: ...
@@ -116,19 +115,19 @@ def print_allocation_stats2(positions, students):
         2: [0, 1000, 0, 0],
         3: [0, 1000, 0, 0]
     }
-    firstChoice = 0
-    secondChoice = 0
-    thirdChoice = 0
-    noChoice = 0
+    first_choice = 0
+    second_choice = 0
+    third_choice = 0
+    no_choice = 0
     for key, value in students.items():
         slots = positions[value[WISHLIST0]][SLOTSAVAIL] if (
-            value[WISHLIST0] != None) else 0
+            value[WISHLIST0] is not None) else 0
         slots += positions[value[WISHLIST1]
-                           ][SLOTSAVAIL] if (value[WISHLIST1] != None) else 0
+                           ][SLOTSAVAIL] if (value[WISHLIST1] is not None) else 0
         slots += positions[value[WISHLIST2]
-                           ][SLOTSAVAIL] if (value[WISHLIST2] != None) else 0
-        if value[RANKRCVD] == None:
-            noChoice += 1
+                           ][SLOTSAVAIL] if (value[WISHLIST2] is not None) else 0
+        if value[RANKRCVD] is None:
+            no_choice += 1
             results[3][0] += 1
             results[3][2] += slots
             if results[3][1] > slots:
@@ -136,7 +135,7 @@ def print_allocation_stats2(positions, students):
             if results[3][3] < slots:
                 results[3][3] = slots
         elif value[RANKRCVD] == 0:
-            firstChoice += 1
+            first_choice += 1
             results[0][0] += 1
             results[0][2] += slots
             if results[0][1] > slots:
@@ -144,7 +143,7 @@ def print_allocation_stats2(positions, students):
             if results[0][3] < slots:
                 results[0][3] = slots
         elif value[RANKRCVD] == 1:
-            secondChoice += 1
+            second_choice += 1
             results[1][0] += 1
             results[1][2] += slots
             if results[1][1] > slots:
@@ -152,7 +151,7 @@ def print_allocation_stats2(positions, students):
             if results[1][3] < slots:
                 results[1][3] = slots
         else:
-            thirdChoice += 1
+            third_choice += 1
             results[2][0] += 1
             results[2][2] += slots
             if results[2][1] > slots:
