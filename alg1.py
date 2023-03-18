@@ -4,6 +4,7 @@
      There can/will be students who don't get a spot depending on slots available for their 
      job choices.
 '''
+# pylint: disable=too-many-nested-blocks
 import random
 from constants import MAXCHOICES, POSID, SLOTSAVAIL, ALLOCCOUNT, GRADE, ASSIGNED, RANKRCVD
 

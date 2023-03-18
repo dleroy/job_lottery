@@ -10,6 +10,7 @@ Columns of interest in followmedata.csv export data:
  "Student Email":        to map to corresponding student name in the output
  "Student Grade":        if you want to run lottery on a subset of grades
 '''
+# pylint: disable=import-error
 import pandas as pd
 from utils import print_summary_stats, print_allocation_stats, write_student_results
 from alg1 import compute1, pre_fill
@@ -53,7 +54,7 @@ for index, row in followme.iterrows():
     StudentDict[row["Student Name"]][GRADE] = row["Student Grade"]
 
 # Now calculate desired wishlist 0 position counts and update the Position dict
-# XXX Note that this is currently for all exported data and not grade specific
+# Note that this is currently for all exported data and not grade specific
 for index, row in followme.iterrows():
     if row["Wishlist Order"] == 0:
         PositionDict[row["Position ID"]][FSTCHOICE] += 1

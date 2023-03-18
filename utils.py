@@ -1,4 +1,6 @@
 ''' Utility functions for the Job Share Lottery '''
+# pylint: disable=unused-argument, unused-variable, too-many-branches
+# pylint: disable=unspecified-encoding, useless-return, expression-not-assigned
 import csv
 from constants import (
                         COMPANY, SLOTSAVAIL, RANKRCVD, WISHLIST0,
