@@ -1,6 +1,6 @@
 ''' Utility functions for the Job Share Lottery '''
 import csv
-from constants import COMPANY, SLOTSAVAIL, ALLOCCOUNT, RANKRCVD, WISHLIST0, WISHLIST1, WISHLIST2, EMAIL, GRADE
+from constants import COMPANY, SLOTSAVAIL, RANKRCVD, WISHLIST0, WISHLIST1, WISHLIST2, EMAIL, GRADE, ASSIGNED
 
 
 def print_summary_stats(positions, students):
@@ -13,7 +13,7 @@ def print_summary_stats(positions, students):
         total_jobs += value[SLOTSAVAIL]
 
     print(
-        f'Unique positions offered: {len(positions)}\nTotal available slots: {totalJobs}')
+        f'Unique positions offered: {len(positions)}\nTotal available slots: {total_jobs}')
     print(f'Total students: {len(students)}')
 
 
@@ -76,19 +76,19 @@ def write_student_results(positions, students, grades):
     for key, value in students.items():
         if (value[GRADE] in grades):
             # Build candidates company choices and print only if they didn't get a company assigned
-            companyChoices = positions[value[WISHLIST0]][COMPANY] if (
-                value[WISHLIST0] != None) else ""
-            companyChoices += "," + \
+            company_choices = positions[value[WISHLIST0]][COMPANY] if (
+                value[WISHLIST0] is not None) else ""
+            company_choices += "," + \
                 str(positions[value[WISHLIST1]][COMPANY]) if (
-                    value[WISHLIST1] != None) else ""
-            companyChoices += "," + \
+                    value[WISHLIST1] is not None) else ""
+            company_choices += "," + \
                 str(positions[value[WISHLIST2]][COMPANY])if (
-                    value[WISHLIST2] != None) else ""
+                    value[WISHLIST2] is not None) else ""
             row_list.append([key,
                              value[EMAIL],
                              value[GRADE],
                              positions[value[ASSIGNED]][COMPANY] if (
-                                 value[ASSIGNED] != None) else companyChoices,
+                                 value[ASSIGNED] is not None) else company_choices,
                              value[ASSIGNED],
                              value[RANKRCVD]])
 
@@ -100,7 +100,7 @@ def write_student_results(positions, students, grades):
         my_writer.writerows(row_list)
 
 
-def printAllocationStats2(positions, students):
+def print_allocation_stats2(positions, students):
     ''' Look at correlation between number of slots available in choices made vs. what spot they received
         Output:
             1st choice:  num, min, mean, max slots available

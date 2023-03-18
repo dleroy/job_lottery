@@ -11,7 +11,7 @@ Columns of interest in followmedata.csv export data:
  "Student Grade":        if you want to run lottery on a subset of grades
 '''
 import pandas as pd
-from utils import printSummaryStats, printAllocationStats, writeStudentResults
+from utils import print_summary_stats, print_allocation_stats, write_student_results
 from alg1 import compute1, pre_fill
 from constants import WISHLIST0, WISHLIST1, WISHLIST2, EMAIL, GRADE, FSTCHOICE, SNDCHOICE, THRDCHOICE
 
@@ -79,10 +79,10 @@ pre_fill(PositionDict, StudentDict, preferredJobs, grades)
 compute1(PositionDict, StudentDict, grades)
 
 # Print Student results to a CSV file JobShare.csv
-writeStudentResults(PositionDict, StudentDict, grades)
+write_student_results(PositionDict, StudentDict, grades)
 
 # Print stats about positions and students to cross check with followmejobshadow.com site
-printSummaryStats(PositionDict, StudentDict)
+print_summary_stats(PositionDict, StudentDict)
 
 # print 1st, 2nd, 3rd choide stats
-printAllocationStats(PositionDict, StudentDict, grades)
+print_allocation_stats(PositionDict, StudentDict, grades)
