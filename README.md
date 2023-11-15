@@ -1,5 +1,5 @@
-# job_lottery
-This Python program takes in the exported_data CSV file from our school job shadow program website  and assigns job choices to students
+# JobShadow Lottery Selection
+This is a standalone python program that takes an exported report from the 2022 Job Shadow Program website and assigns job choices to students.
 
 Configurable parameters:
   1) Grades: You can define the grades considered in the lottery. These are in a priority order and 1st in the list will get allocations first.
