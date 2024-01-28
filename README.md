@@ -7,4 +7,6 @@ Configurable parameters:
      general lottery algorithm runs.
      
  Both of these are currently defined in lottery.py and not exposed as externally configurable parameters
+
+ Note: 2023 lottery program is in jobcamp_lottery repo
  
